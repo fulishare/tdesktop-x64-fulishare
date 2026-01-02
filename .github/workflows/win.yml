@@ -2,24 +2,18 @@ name: Windows.
 
 on:
   push:
+    branches:
+      - dev          # 确保监听的是你的 dev 分支
     paths-ignore:
       - "docs/**"
       - "**.md"
-      - "!docs/building-win*.md"
+      - "docs/building-win*.md"
       - "changelog.txt"
       - "LEGAL"
       - "LICENSE"
       - ".github/**"
       - "!.github/workflows/win.yml"
-      - "lib/xdg/**"
-      - "snap/**"
-      - "Telegram/build/docker/**"
-      - "Telegram/Resources/uwp/**"
-      - "Telegram/SourceFiles/platform/linux/**"
-      - "Telegram/SourceFiles/platform/mac/**"
-      - "Telegram/Telegram/**"
-      - "Telegram/configure.sh"
-      - "Telegram/Telegram.plist"
+  workflow_dispatch: # 添加手动触发按钮
   pull_request:
     paths-ignore:
       - "docs/**"
@@ -41,7 +35,6 @@ on:
       - "Telegram/Telegram.plist"
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 jobs:
   windows:
