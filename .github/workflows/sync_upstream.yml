@@ -1,0 +1,29 @@
+name: 自动同步上游
+
+on:
+  schedule:
+    - cron: '0 0 * * *'     # 每天凌晨自动运行
+  workflow_dispatch:        # 支持手动点击运行
+
+jobs:
+  sync_latest_from_upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Git 环境
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+      - name: 同步操作
+        run: |
+          # 添加你新 fork 的原作者仓库
+          git remote add upstream https://github.com/yzx23333/tdesktop-x64.git
+          git fetch upstream dev
+          git checkout dev
+          git merge upstream/dev
+          git push origin dev
